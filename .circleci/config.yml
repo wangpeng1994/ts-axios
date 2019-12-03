@@ -1,0 +1,82 @@
+# https://github.com/revolunet/create-react-app-circleci/blob/master/.circleci/config.yml
+defaults: &defaults
+  docker:
+    - image: circleci/node:8
+version: 2
+
+jobs:
+  prepare:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "package.json" }}
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v2-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: yarn ci
+      # 如果打算部署覆盖率报告静态页面
+      # - run: cd coverage
+      # - run: git init
+      # - run: git remote set-url origin xxxx
+      # - run: git add .
+      # - run: git commit -m "update"
+      # - run: git push
+      - store_test_results:
+          path: test-results
+  # build 是必须有的 job，且未指定 workflows 时，jobs 只会执行 build（会失败，因为没有 install）
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - package.json
+            - LICENSE
+            - README.md
+  publish:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+      - run: npm publish
+
+workflows:
+  version: 2
+  build_accept_deploy:
+    jobs:
+      - prepare
+      - test:
+          requires:
+            - prepare
+      - build:
+          requires:
+            - test
+      - publish:
+          requires:
+            - build
+          # push 代码时分支打了 tag 才 publish
+          filters:
+            tags:
+              only: /^v[0-9]+(\.[0-9]+)*/
+            branches: # 忽略分支的区别
+              ignore: /.*/

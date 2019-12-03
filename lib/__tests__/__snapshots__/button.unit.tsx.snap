@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`button 是个 div 1`] = `
+<div
+  className="button"
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  点我啊
+</div>
+`;
