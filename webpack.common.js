@@ -1,13 +1,12 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './lib/index.tsx'
+    index: './lib/index.ts'
   },
   output: {
     path: path.resolve(__dirname, 'dist/lib'),
-    library: 'RUI',
+    library: 'ts-axios',
     libraryTarget: 'umd'
   },
   resolve: {
