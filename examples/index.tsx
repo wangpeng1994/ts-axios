@@ -5,7 +5,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Example1 from './Components/Example1';
+import Simple from './Components/Simple';
+import Base from './Components/Base';
 
 ReactDOM.render((
   <Router>
@@ -14,20 +15,20 @@ ReactDOM.render((
     </header>
     <div>
       <aside>
-        <h2>demo</h2>
+        <h1>ts-axios 演示</h1>
         <ul>
           <li>
-            <Link to="/example1">example1</Link>
+            <Link to="/simple">simple</Link>
           </li>
           <li>
-            <Link to="/example2">example2</Link>
+            <Link to="/base">base</Link>
           </li>
         </ul>
       </aside>
       <main>
         <Switch>
-          <Route path="/example1" component={Example1} />
-          <Route path="/example2" render={() => <div>example2</div>} />
+          <Route path="/simple" component={Simple} />
+          <Route path="/base" component={Base} />
         </Switch>
       </main>
     </div>

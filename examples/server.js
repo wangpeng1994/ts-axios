@@ -18,7 +18,7 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
-// app.use(express.static(__dirname));
+app.use(express.static(__dirname));
 
 app.use(bodyParser.json());
 
@@ -30,6 +30,10 @@ router.get('/simple/get', function(req, res) {
   res.json({
     msg: 'hello world'
   });
+});
+
+router.get('/base/get', function(req, res) {
+  res.json(req.query);
 });
 
 app.use(router);
