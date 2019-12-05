@@ -12,7 +12,7 @@ export default function () {
   });
 
   return <>
-  <h3>base</h3>
+  <h3>simple</h3>
   <pre><code>{`
   axios({
     method: 'get',
