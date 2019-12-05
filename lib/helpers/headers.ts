@@ -15,7 +15,7 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
 }
 
 export function processHeaders(headers: any, data: any): any {
-  normalizeHeaderName(headers, 'Content-Type');  // 规范化 Content-Type 字段大小写
+  normalizeHeaderName(headers, 'Content-Type');  // 目前只规范化 Content-Type 字段大小写
 
   // 传入的 data 为 plain object，要添加 Content-Type: application/json
   if (isPlainObject(data)) {
@@ -24,5 +24,6 @@ export function processHeaders(headers: any, data: any): any {
     }
   }
 
+  // 其它请求头不作处理，保持原样
   return headers;
 }
