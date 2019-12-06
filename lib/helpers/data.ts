@@ -12,7 +12,7 @@ export function transformRequest(data: any): any {
   return data;
 }
 
-// 尝试将返回的字符串数据转化成 json 对象，即使没有指定 responseType: 'json' 时
+// 返回的若是字符串，则优先尝试转化成 json 对象，即使没有指定 responseType: 'json'
 export function transformResponse(data: any): any {
   if (typeof data  === 'string') {
     try {

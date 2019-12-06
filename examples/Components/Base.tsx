@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../../lib';
+import axios, { AxiosError } from '../../lib';
 
 export default function () {
 

@@ -29,3 +29,11 @@ export interface AxiosResponse {
 // 当 axios 返回的是 AxiosPromise 类型，那么 resolve 函数中的参数就是一个 AxiosResponse 类型。
 export interface AxiosPromise extends Promise<AxiosResponse> {
 }
+
+export interface AxiosError extends Error {
+  config: AxiosRequestConfig;
+  code?: string | null;
+  request?: any;
+  response?: AxiosResponse;
+  isAxiosError: boolean;
+}

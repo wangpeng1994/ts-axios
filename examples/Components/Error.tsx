@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from '../../lib';
+import { AxiosError } from '../../lib/helpers/error';
 
 export default function () {
 
@@ -13,7 +14,7 @@ export default function () {
     console.log(e);
   });
 
-  // 有一定几率网络异常 500
+  // 有一定几率 500
   axios({
     method: 'get',
     url: '/error/get'
@@ -24,15 +25,15 @@ export default function () {
   });
 
   // 不会超时
-  axios({
-    method: 'get',
-    url: '/error/timeout',
-    timeout: 5000
-  }).then(res => {
-    console.log(res);
-  }).catch(e => {
-    console.log(e);
-  });
+  // axios({
+  //   method: 'get',
+  //   url: '/error/timeout',
+  //   timeout: 5000
+  // }).then(res => {
+  //   console.log(res);
+  // }).catch(e => {
+  //   console.log(e);
+  // });
 
   // 模拟请求超时 （后台大约会需要3秒才能返回）
   axios({
@@ -41,8 +42,11 @@ export default function () {
     timeout: 2000
   }).then(res => {
     console.log(res);
-  }).catch(e => {
+  }).catch((e: AxiosError) => {
     console.log(e.message);
+    console.log(e.config);
+    console.log(e.code);
+    console.log(e.request);
   });
 
   return <>
