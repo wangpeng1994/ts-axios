@@ -53,6 +53,27 @@ router.post('/base/buffer', function (req, res) {
   })
 });
 
+// 模拟随机的 500 报错
+router.get('/error/get', function (req, res) {
+  if (Math.random() > 0.5) {
+    res.json({
+      msg: 'hello word'
+    });
+  } else {
+    res.status(500);
+    res.end();
+  }
+});
+
+// 模拟网络超时
+router.get('/error/timeout', function (req, res) {
+  setTimeout(() => {
+    res.json({
+      msg: 'hello world'
+    });
+  }, 3000);
+});
+
 app.use(router);
 
 const port = process.env.PORT || 3000;

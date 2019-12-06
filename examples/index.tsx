@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Simple from './Components/Simple';
 import Base from './Components/Base';
+import Error from './Components/Error';
 
 ReactDOM.render((
   <Router>
@@ -23,12 +24,16 @@ ReactDOM.render((
           <li>
             <Link to="/base">base</Link>
           </li>
+          <li>
+            <Link to="/error">error</Link>
+          </li>
         </ul>
       </aside>
       <main>
         <Switch>
           <Route path="/simple" component={Simple} />
           <Route path="/base" component={Base} />
+          <Route path="/error" component={Error} />
         </Switch>
       </main>
     </div>

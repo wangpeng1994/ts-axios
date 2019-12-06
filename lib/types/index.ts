@@ -14,6 +14,7 @@ export interface AxiosRequestConfig {
   headers?: any;
   // "" | "arraybuffer" | "blob" | "document" | "json" | "text";
   responseType?: XMLHttpRequestResponseType;
+  timeout?: number
 }
 
 export interface AxiosResponse {
