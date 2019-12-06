@@ -1,12 +1,15 @@
+import { AxiosResponse } from './types/index';
 import { AxiosRequestConfig, AxiosPromise } from './types';
 import xhr from './xhr';
 import { buildURL } from './helpers/url';
-import { transformRequest } from './helpers/data';
+import { transformRequest, transformResponse } from './helpers/data';
 import { processHeaders } from './helpers/headers';
 
 function axios(config: AxiosRequestConfig): AxiosPromise {
   processConfig(config);
-  return xhr(config);
+  return xhr(config).then(res => {
+    return transformResponseData(res);
+  });
 }
 
 // 目前是为了转化 URL，未来可能还要对其它参数做处理
@@ -28,6 +31,11 @@ function transformRequestData(config: AxiosRequestConfig): any {
 function transFormHeaders(config: AxiosRequestConfig): any {
   const { headers = {}, data } = config;
   return processHeaders(headers, data);
+}
+
+function transformResponseData(res: AxiosResponse): AxiosResponse {
+  res.data = transformResponse(res.data);
+  return res;
 }
 
 export default axios;

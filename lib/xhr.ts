@@ -1,5 +1,7 @@
 import { AxiosResponse } from './types/index';
 import { AxiosRequestConfig, AxiosPromise } from './types';
+import { parseHeaders } from './helpers/headers';
+
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise(resolve => {
@@ -10,7 +12,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     const request = new XMLHttpRequest();
     
     // responseType 属性指定了响应数据的类型，合理设置后可以从请求实例的响应中拿到合理解析后的数据
-    // 不传时默认值是 'text'
+    // 默认会被当做 'text' 文本来解析收到的响应数据
     if (responseType) {
       request.responseType = responseType;
     }
@@ -19,7 +21,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       if (request.readyState !== 4) {
         return;
       }
-      const responseHeaders = request.getAllResponseHeaders();
+      const responseHeaders = parseHeaders(request.getAllResponseHeaders());
       const responseData = responseType !== 'text'
         ? request.response
         : request.responseText;

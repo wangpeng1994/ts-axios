@@ -11,3 +11,15 @@ export function transformRequest(data: any): any {
   // 其余符合的类型实例可以直接发送
   return data;
 }
+
+// 尝试将返回的字符串数据转化成 json 对象，即使没有指定 responseType: 'json' 时
+export function transformResponse(data: any): any {
+  if (typeof data  === 'string') {
+    try {
+      data = JSON.parse(data);
+    } catch (e) {
+      // do nothing
+    }
+  }
+  return data;
+}
