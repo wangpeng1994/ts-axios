@@ -17,8 +17,8 @@ export interface AxiosRequestConfig {
   timeout?: number
 }
 
-export interface AxiosResponse {
-  data: any;                  // 服务器端返回的数据
+export interface AxiosResponse<T = any> {
+  data: T;                    // 服务器端返回的数据
   status: number;             // HTTP 状态码
   statusText: string;         // 状态消息
   headers: any;               // 响应头
@@ -27,7 +27,7 @@ export interface AxiosResponse {
 }
 
 // 当 axios 返回的是 AxiosPromise 类型，那么 resolve 函数中的参数就是一个 AxiosResponse 类型。
-export interface AxiosPromise extends Promise<AxiosResponse> {
+export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {
 }
 
 export interface AxiosError extends Error {
@@ -40,27 +40,27 @@ export interface AxiosError extends Error {
 
 // 如果使用了这些方法，就不必在 config 中指定 url、method、data 这些属性了
 export interface Axios {
-  request(config: AxiosRequestConfig): AxiosPromise;
+  request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>;
 
-  get(url: string, config?: AxiosRequestConfig): AxiosPromise;
+  get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
 
-  delete(url: string, config?: AxiosRequestConfig): AxiosPromise;
+  delete<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
 
-  head(url: string, config?: AxiosRequestConfig): AxiosPromise;
+  head<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
 
-  options(url: string, config?: AxiosRequestConfig): AxiosPromise;
+  options<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
 
-  post(url: string, data?: any, cofnig?: AxiosRequestConfig): AxiosPromise;
+  post<T = any>(url: string, data?: any, cofnig?: AxiosRequestConfig): AxiosPromise<T>;
 
-  put(url: string, data?: any, cofnig?: AxiosRequestConfig): AxiosPromise;
+  put<T = any>(url: string, data?: any, cofnig?: AxiosRequestConfig): AxiosPromise<T>;
 
-  patch(url: string, data?: any, cofnig?: AxiosRequestConfig): AxiosPromise;
+  patch<T = any>(url: string, data?: any, cofnig?: AxiosRequestConfig): AxiosPromise<T>;
 }
 
 // 这是个混合类型，本身是一个函数类型，同时又有 Axios 类型中的方法
 export interface AxiosInstance extends Axios {
-  (config: AxiosRequestConfig): AxiosPromise;
+  <T = any>(config: AxiosRequestConfig): AxiosPromise<T>;
 
   // 支持函数重载
-  (url: string, config?: AxiosRequestConfig): AxiosPromise;
+  <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
 }
