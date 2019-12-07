@@ -8,6 +8,7 @@ import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Simple from './Components/Simple';
 import Base from './Components/Base';
 import Error from './Components/Error';
+import Extend from './Components/Extend';
 
 ReactDOM.render((
   <Router>
@@ -27,6 +28,9 @@ ReactDOM.render((
           <li>
             <Link to="/error">error</Link>
           </li>
+          <li>
+            <Link to="/extend">extend</Link>
+          </li>
         </ul>
       </aside>
       <main>
@@ -34,6 +38,7 @@ ReactDOM.render((
           <Route path="/simple" component={Simple} />
           <Route path="/base" component={Base} />
           <Route path="/error" component={Error} />
+          <Route path="/extend" component={Extend} />          
         </Switch>
       </main>
     </div>

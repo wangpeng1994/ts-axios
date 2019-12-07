@@ -1,7 +1,7 @@
-import { AxiosResponse } from './types/index';
-import { AxiosRequestConfig, AxiosPromise } from './types';
-import { parseHeaders } from './helpers/headers';
-import { createError } from './helpers/error';
+import { AxiosResponse } from '../types';
+import { AxiosRequestConfig, AxiosPromise } from '../types';
+import { parseHeaders } from '../helpers/headers';
+import { createError } from '../helpers/error';
 
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
@@ -56,7 +56,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       reject(createError(`Timeout of ${timeout}ms exceeded`, config, 'ECONNABORTED', request));
     }
 
-    request.open(method.toUpperCase(), url, true);
+    request.open(method.toUpperCase(), url!, true);
 
     Object.keys(headers).forEach(name => {
       // 传入的 data 为空时，为请求 header 设置 Content-Type 没意义
